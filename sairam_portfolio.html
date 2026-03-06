@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sai Ram | Full Stack Java Developer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --navy: #1a2332;
+      --gold: #c9a84c;
+      --cream: #f9f6f0;
+      --slate: #4a5568;
+      --light: #eef0f4;
+      --white: #ffffff;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background: var(--cream);
+      color: var(--navy);
+      line-height: 1.7;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: var(--navy);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 60px;
+      height: 64px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.18);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      color: var(--gold);
+      font-size: 1.4rem;
+      letter-spacing: 1px;
+    }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      color: #ccc;
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    /* ─── HERO ─── */
+    #hero {
+      min-height: 100vh;
+      background: var(--navy);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      padding-top: 64px;
+    }
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 70% 40%, rgba(201,168,76,0.10) 0%, transparent 65%),
+                  radial-gradient(ellipse at 20% 80%, rgba(201,168,76,0.07) 0%, transparent 55%);
+    }
+    .hero-content { position: relative; z-index: 1; }
+    .hero-eyebrow {
+      font-size: 0.78rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 18px;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.2s forwards;
+    }
+    .hero-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 8vw, 6rem);
+      color: var(--white);
+      font-weight: 700;
+      line-height: 1.05;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.4s forwards;
+    }
+    .hero-title {
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      color: #8899aa;
+      font-weight: 300;
+      margin-top: 14px;
+      letter-spacing: 2px;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.6s forwards;
+    }
+    .hero-divider {
+      width: 60px;
+      height: 2px;
+      background: var(--gold);
+      margin: 28px auto;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.75s forwards;
+    }
+    .hero-summary {
+      max-width: 560px;
+      margin: 0 auto;
+      color: #aab4c0;
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.8;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.9s forwards;
+    }
+    .hero-cta {
+      display: inline-flex;
+      gap: 16px;
+      margin-top: 36px;
+      opacity: 0;
+      animation: fadeUp 0.7s 1.05s forwards;
+    }
+    .btn {
+      padding: 13px 32px;
+      font-size: 0.82rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: all 0.25s;
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+    }
+    .btn-primary {
+      background: var(--gold);
+      color: var(--navy);
+      border: 2px solid var(--gold);
+    }
+    .btn-primary:hover { background: transparent; color: var(--gold); }
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 2px solid rgba(255,255,255,0.3);
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── SECTIONS ─── */
+    section { padding: 96px 0; }
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 40px; }
+    .section-label {
+      font-size: 0.72rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      color: var(--navy);
+      font-weight: 700;
+      line-height: 1.15;
+    }
+    .section-rule {
+      width: 48px;
+      height: 2px;
+      background: var(--gold);
+      margin: 20px 0 48px;
+    }
+
+    /* ─── ABOUT ─── */
+    #about { background: var(--white); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: start;
+    }
+    .about-text p {
+      color: var(--slate);
+      margin-bottom: 16px;
+      font-size: 1.02rem;
+    }
+    .about-meta { display: flex; flex-direction: column; gap: 16px; }
+    .meta-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 18px 20px;
+      background: var(--cream);
+      border-left: 3px solid var(--gold);
+    }
+    .meta-icon { font-size: 1.1rem; margin-top: 2px; }
+    .meta-label { font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); font-weight: 700; }
+    .meta-value { font-size: 0.95rem; color: var(--navy); font-weight: 400; }
+
+    /* ─── SKILLS ─── */
+    #skills { background: var(--cream); }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .skill-card {
+      background: var(--white);
+      padding: 32px 28px;
+      border-bottom: 3px solid var(--gold);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .skill-card:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(0,0,0,0.10); }
+    .skill-category {
+      font-size: 0.7rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag {
+      padding: 5px 14px;
+      background: var(--light);
+      border-radius: 2px;
+      font-size: 0.82rem;
+      color: var(--navy);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    /* ─── PROJECTS ─── */
+    #projects { background: var(--white); }
+    .project-card {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 0;
+      border: 1px solid #e4e8ee;
+      overflow: hidden;
+      margin-bottom: 32px;
+      transition: box-shadow 0.2s;
+    }
+    .project-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.10); }
+    .project-year {
+      background: var(--navy);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: var(--gold);
+      padding: 36px 24px;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      letter-spacing: 4px;
+    }
+    .project-body { padding: 36px 40px; }
+    .project-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: var(--navy);
+      margin-bottom: 10px;
+    }
+    .project-desc { color: var(--slate); font-size: 0.97rem; margin-bottom: 18px; }
+    .project-stack { display: flex; flex-wrap: wrap; gap: 8px; }
+    .stack-tag {
+      padding: 4px 12px;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-size: 0.76rem;
+      letter-spacing: 1px;
+      font-weight: 700;
+      text-transform: uppercase;
+      border-radius: 2px;
+    }
+
+    /* ─── EXPERIENCE & EDUCATION ─── */
+    #experience { background: var(--cream); }
+    .timeline { position: relative; padding-left: 28px; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 8px; bottom: 8px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+    }
+    .timeline-item { position: relative; margin-bottom: 48px; }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -34px; top: 8px;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--gold);
+      border: 2px solid var(--cream);
+      box-shadow: 0 0 0 2px var(--gold);
+    }
+    .timeline-period {
+      font-size: 0.72rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .timeline-role {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+    .timeline-org {
+      font-size: 0.88rem;
+      color: var(--slate);
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+    .timeline-detail {
+      color: var(--slate);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+    .timeline-detail li { margin-bottom: 6px; list-style: none; padding-left: 16px; position: relative; }
+    .timeline-detail li::before { content: '—'; position: absolute; left: 0; color: var(--gold); }
+
+    /* ─── CERTIFICATES ─── */
+    #certificates { background: var(--white); }
+    .cert-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .cert-card {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 24px 28px;
+      border: 1px solid #e4e8ee;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .cert-card:hover { border-color: var(--gold); box-shadow: 0 4px 18px rgba(201,168,76,0.12); }
+    .cert-icon { font-size: 2rem; }
+    .cert-year { font-size: 0.7rem; letter-spacing: 2px; color: var(--gold); text-transform: uppercase; font-weight: 700; margin-bottom: 4px; }
+    .cert-name { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .cert-link { font-size: 0.8rem; color: var(--slate); text-decoration: none; }
+    .cert-link:hover { color: var(--gold); }
+
+    /* ─── CONTACT ─── */
+    #contact { background: var(--navy); }
+    #contact .section-title { color: var(--white); }
+    #contact .section-label { color: var(--gold); }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .contact-intro {
+      color: #8899aa;
+      font-size: 1.05rem;
+      line-height: 1.8;
+      font-weight: 300;
+      margin-bottom: 32px;
+    }
+    .contact-items { display: flex; flex-direction: column; gap: 20px; }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .contact-icon {
+      width: 44px; height: 44px;
+      background: rgba(201,168,76,0.12);
+      border: 1px solid rgba(201,168,76,0.3);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .contact-label { font-size: 0.68rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); font-weight: 700; margin-bottom: 3px; }
+    .contact-val { color: #ccd6e0; font-size: 0.95rem; }
+    .contact-val a { color: #ccd6e0; text-decoration: none; }
+    .contact-val a:hover { color: var(--gold); }
+    .contact-form { display: flex; flex-direction: column; gap: 16px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-label { font-size: 0.68rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); font-weight: 700; }
+    .form-input, .form-textarea {
+      padding: 13px 16px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--white);
+      font-family: 'Lato', sans-serif;
+      font-size: 0.95rem;
+      border-radius: 2px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-input:focus, .form-textarea:focus { border-color: var(--gold); }
+    .form-input::placeholder, .form-textarea::placeholder { color: #5a6a7a; }
+    .form-textarea { resize: vertical; min-height: 110px; }
+    .btn-send {
+      align-self: flex-start;
+      background: var(--gold);
+      color: var(--navy);
+      border: 2px solid var(--gold);
+      padding: 13px 36px;
+      font-size: 0.82rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-weight: 700;
+      cursor: pointer;
+      border-radius: 2px;
+      font-family: 'Lato', sans-serif;
+      transition: all 0.25s;
+    }
+    .btn-send:hover { background: transparent; color: var(--gold); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: #111820;
+      text-align: center;
+      padding: 28px;
+      color: #445566;
+      font-size: 0.82rem;
+      letter-spacing: 1px;
+    }
+    footer span { color: var(--gold); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      nav { padding: 0 24px; }
+      .nav-links { gap: 16px; }
+      .about-grid, .contact-grid, .form-row { grid-template-columns: 1fr; gap: 36px; }
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+      .cert-grid { grid-template-columns: 1fr; }
+      .project-card { grid-template-columns: 1fr; }
+      .project-year { writing-mode: horizontal-tb; padding: 20px 32px; font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">SR.</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-content">
+    <p class="hero-eyebrow">Welcome to my portfolio</p>
+    <h1 class="hero-name">Sai Ram</h1>
+    <p class="hero-title">Full Stack Java Developer</p>
+    <div class="hero-divider"></div>
+    <p class="hero-summary">
+      Skilled in Java, Spring Boot, Hibernate, and front-end technologies.
+      Experienced in building scalable web applications and API integration,
+      dedicated to delivering high-quality solutions.
+    </p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-primary">View My Work</a>
+      <a href="#contact" class="btn btn-outline">Get In Touch</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <p class="section-label">Who I Am</p>
+    <h2 class="section-title">About Me</h2>
+    <div class="section-rule"></div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          I'm a Full Stack Java Developer based in Chennai, India, with a passion for building clean, efficient, and scalable web applications. My journey spans both backend engineering with Java & Spring ecosystems and crafting responsive frontends with HTML, CSS, and JavaScript.
+        </p>
+        <p>
+          With a background in Mechanical Engineering and an MBA, I bring an analytical, systems-thinking mindset to software development — approaching every problem with precision and a commitment to quality.
+        </p>
+        <p>
+          I recently completed a Java Full Stack Development course and hold a HackerRank certification, continuously expanding my skills to stay current with modern development practices.
+        </p>
+      </div>
+      <div class="about-meta">
+        <div class="meta-item">
+          <span class="meta-icon">📍</span>
+          <div>
+            <div class="meta-label">Location</div>
+            <div class="meta-value">Pallikaranai, Chennai, Tamil Nadu</div>
+          </div>
+        </div>
+        <div class="meta-item">
+          <span class="meta-icon">📧</span>
+          <div>
+            <div class="meta-label">Email</div>
+            <div class="meta-value">sairamsubramanian1999@gmail.com</div>
+          </div>
+        </div>
+        <div class="meta-item">
+          <span class="meta-icon">📱</span>
+          <div>
+            <div class="meta-label">Phone</div>
+            <div class="meta-value">+91 7010620603</div>
+          </div>
+        </div>
+        <div class="meta-item">
+          <span class="meta-icon">🌐</span>
+          <div>
+            <div class="meta-label">Languages</div>
+            <div class="meta-value">English &amp; Tamil</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <p class="section-label">What I Know</p>
+    <h2 class="section-title">Technical Skills</h2>
+    <div class="section-rule"></div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-category">Backend</div>
+        <div class="skill-tags">
+          <span class="tag">Core Java</span>
+          <span class="tag">Spring Boot</span>
+          <span class="tag">Spring MVC</span>
+          <span class="tag">Spring IoC</span>
+          <span class="tag">Hibernate</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-category">Frontend</div>
+        <div class="skill-tags">
+          <span class="tag">HTML5</span>
+          <span class="tag">CSS3</span>
+          <span class="tag">JavaScript</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-category">Database</div>
+        <div class="skill-tags">
+          <span class="tag">SQL</span>
+          <span class="tag">Hibernate ORM</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <p class="section-label">What I've Built</p>
+    <h2 class="section-title">Projects</h2>
+    <div class="section-rule"></div>
+
+    <div class="project-card">
+      <div class="project-year">2024 – 2025</div>
+      <div class="project-body">
+        <h3 class="project-title">Employee Attendance Management System</h3>
+        <p class="project-desc">
+          A modern and responsive full-stack web application for managing employee attendance records. Built with a robust Spring Boot backend, a dynamic JavaScript frontend, and a reliable SQL/Hibernate data layer. The system streamlines attendance tracking, reduces manual effort, and provides clear reporting for HR operations.
+        </p>
+        <div class="project-stack">
+          <span class="stack-tag">Spring Boot</span>
+          <span class="stack-tag">HTML</span>
+          <span class="stack-tag">CSS</span>
+          <span class="stack-tag">JavaScript</span>
+          <span class="stack-tag">SQL</span>
+          <span class="stack-tag">Hibernate</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE & EDUCATION -->
+<section id="experience">
+  <div class="container">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:72px;">
+      <!-- Experience -->
+      <div>
+        <p class="section-label">Career</p>
+        <h2 class="section-title">Experience</h2>
+        <div class="section-rule"></div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-period">2021 – 2024</div>
+            <div class="timeline-role">Medical Billing Specialist</div>
+            <div class="timeline-org">Omega Healthcare</div>
+            <ul class="timeline-detail">
+              <li>Handled end-to-end medical billing including claim creation, submission, denial management, and payment posting.</li>
+              <li>Ensured accurate coding and insurance verification to maximise reimbursement and reduce claim rejections.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- Education -->
+      <div>
+        <p class="section-label">Academic Background</p>
+        <h2 class="section-title">Education</h2>
+        <div class="section-rule"></div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-period">2021 – 2023</div>
+            <div class="timeline-role">Master of Business Administration</div>
+            <div class="timeline-org">Asan Memorial College of Arts and Science · 65%</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-period">2017 – 2021</div>
+            <div class="timeline-role">Bachelor of Mechanical Engineering</div>
+            <div class="timeline-org">Anand Institute of Higher Technology · CGPA 7.63</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-period">2015 – 2017</div>
+            <div class="timeline-role">Higher Secondary</div>
+            <div class="timeline-org">St. Antony's Matriculation Higher Secondary School · 69%</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-period">2015</div>
+            <div class="timeline-role">SSLC</div>
+            <div class="timeline-org">St. Antony's Matriculation Higher Secondary School · 89%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATES -->
+<section id="certificates">
+  <div class="container">
+    <p class="section-label">Credentials</p>
+    <h2 class="section-title">Certificates</h2>
+    <div class="section-rule"></div>
+    <div class="cert-grid">
+      <div class="cert-card">
+        <div class="cert-icon">🏅</div>
+        <div>
+          <div class="cert-year">2024 – 2025</div>
+          <div class="cert-name">Java Full Stack Development Course</div>
+          <div style="color:var(--slate); font-size:0.88rem;">Comprehensive training in Java, Spring Boot, Hibernate &amp; frontend technologies.</div>
+        </div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon">🏆</div>
+        <div>
+          <div class="cert-year">2025</div>
+          <div class="cert-name">HackerRank Certification</div>
+          <a class="cert-link" href="https://www.hackerrank.com/profile/sairamsubramani1" target="_blank">
+            hackerrank.com/profile/sairamsubramani1 ↗
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <p class="section-label">Let's Connect</p>
+    <h2 class="section-title">Get In Touch</h2>
+    <div class="section-rule"></div>
+    <div class="contact-grid">
+      <div>
+        <p class="contact-intro">
+          I'm actively looking for new opportunities as a Full Stack Java Developer.
+          Whether you have a project in mind, a role to discuss, or just want to say hello — my inbox is always open.
+        </p>
+        <div class="contact-items">
+          <div class="contact-item">
+            <div class="contact-icon">📧</div>
+            <div>
+              <div class="contact-label">Email</div>
+              <div class="contact-val"><a href="mailto:sairamsubramanian1999@gmail.com">sairamsubramanian1999@gmail.com</a></div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📱</div>
+            <div>
+              <div class="contact-label">Phone</div>
+              <div class="contact-val"><a href="tel:+917010620603">+91 7010620603</a></div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div>
+              <div class="contact-label">Location</div>
+              <div class="contact-val">Chennai, Tamil Nadu, India</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="contact-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Your Name</label>
+              <input type="text" class="form-input" placeholder="John Doe"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email Address</label>
+              <input type="email" class="form-input" placeholder="john@example.com"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Subject</label>
+            <input type="text" class="form-input" placeholder="Job Opportunity / Project Collaboration"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Message</label>
+            <textarea class="form-textarea" placeholder="Tell me about the role or project..."></textarea>
+          </div>
+          <button class="btn-send" onclick="alert('Message sent! (Connect to a backend to enable this)')">Send Message</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  Crafted with care by <span>Sai Ram</span> · Full Stack Java Developer · Chennai, India
+</footer>
+
+</body>
+</html>
